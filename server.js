@@ -1,11 +1,17 @@
-// mongodb+srv://ahm:<password>@devlink.w8izj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+//===================== Modules =======================
 const express = require("express");
+const connectDB = require("./config/db");
 const app = express();
+//===================== Connect Database =======================
+connectDB();
+//===================== Body Parser =======================
 
-//
-app.get("/", (req, res) => {
-  res.send("Working!");
-});
+app.use(express.json());
+//===================== Define Routes  ========================
+app.use("/api/users", require("./routes/api/user"));
+app.use("/api/auth", require("./routes/api/auth"));
+app.use("/api/profile", require("./routes/api/profile"));
+app.use("/api/posts", require("./routes/api/posts"));
 
 // ========================== Listening =============================
 const PORT = process.env.PORT || 5000;
